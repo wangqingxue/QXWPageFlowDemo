@@ -15,6 +15,7 @@
 		C6B142E81FDAFB7400F96758 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C6B142E71FDAFB7400F96758 /* main.m */; };
 		C6B142F21FDAFB7400F96758 /* QXWPagedFlowDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C6B142F11FDAFB7400F96758 /* QXWPagedFlowDemoTests.m */; };
 		C6B142FD1FDAFB7400F96758 /* QXWPagedFlowDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C6B142FC1FDAFB7400F96758 /* QXWPagedFlowDemoUITests.m */; };
+		C6B1430D1FDAFBB800F96758 /* PageFlowView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6B1430C1FDAFBB800F96758 /* PageFlowView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		C6B142F81FDAFB7400F96758 /* QXWPagedFlowDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QXWPagedFlowDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6B142FC1FDAFB7400F96758 /* QXWPagedFlowDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QXWPagedFlowDemoUITests.m; sourceTree = "<group>"; };
 		C6B142FE1FDAFB7400F96758 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C6B1430B1FDAFBB800F96758 /* PageFlowView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PageFlowView.h; sourceTree = "<group>"; };
+		C6B1430C1FDAFBB800F96758 /* PageFlowView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PageFlowView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +104,7 @@
 		C6B142D71FDAFB7400F96758 /* QXWPagedFlowDemo */ = {
 			isa = PBXGroup;
 			children = (
+				C6B1430A1FDAFBA900F96758 /* PageFlowView */,
 				C6B142D81FDAFB7400F96758 /* AppDelegate.h */,
 				C6B142D91FDAFB7400F96758 /* AppDelegate.m */,
 				C6B142DB1FDAFB7400F96758 /* ViewController.h */,
@@ -130,6 +134,15 @@
 				C6B142FE1FDAFB7400F96758 /* Info.plist */,
 			);
 			path = QXWPagedFlowDemoUITests;
+			sourceTree = "<group>";
+		};
+		C6B1430A1FDAFBA900F96758 /* PageFlowView */ = {
+			isa = PBXGroup;
+			children = (
+				C6B1430B1FDAFBB800F96758 /* PageFlowView.h */,
+				C6B1430C1FDAFBB800F96758 /* PageFlowView.m */,
+			);
+			path = PageFlowView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,6 +279,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6B142DD1FDAFB7400F96758 /* ViewController.m in Sources */,
+				C6B1430D1FDAFBB800F96758 /* PageFlowView.m in Sources */,
 				C6B142E81FDAFB7400F96758 /* main.m in Sources */,
 				C6B142DA1FDAFB7400F96758 /* AppDelegate.m in Sources */,
 			);

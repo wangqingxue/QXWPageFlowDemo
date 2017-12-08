@@ -7,8 +7,9 @@
 //
 
 #import "ViewController.h"
+#import "PageFlowView.h"
 
-@interface ViewController ()
+@interface ViewController ()<PageFlowViewDataSourceDelegate>
 
 @end
 
@@ -17,8 +18,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
 }
 
+- (NSInteger)pageFlowScrollViewPageCount{
+    return 20;
+}
+
+- (UIView *)pageFlowViewWithIndex:(NSInteger)index{
+    return nil;
+}
+
+- (CGSize)pageFlowPageSizeFromScrollView{
+    return CGSizeZero;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
