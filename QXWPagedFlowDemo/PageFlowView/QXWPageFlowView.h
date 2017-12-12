@@ -18,7 +18,7 @@
 
 @end
 
-@interface PageFlowView : UIView
+@interface QXWPageFlowView : UIView
 
 @property (nonatomic, assign) id<PageFlowViewDataSourceDelegate> dateSource;
 

@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "PageFlowView.h"
+#import "QXWPageFlowView.h"
 
 @interface ViewController ()<PageFlowViewDataSourceDelegate>
 
@@ -18,7 +18,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
+    QXWPageFlowView *qxwPageFlowView = [[QXWPageFlowView alloc]initWithFrame:CGRectMake(100, 100, 100, 100)];
+    qxwPageFlowView.dateSource = self;
+    [self.view addSubview:qxwPageFlowView];
+    [qxwPageFlowView reloadData];
 }
 
 - (NSInteger)pageFlowScrollViewPageCount{
@@ -26,11 +29,13 @@
 }
 
 - (UIView *)pageFlowViewWithIndex:(NSInteger)index{
-    return nil;
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 80, 80)];
+    view.backgroundColor = [UIColor redColor];
+    return view;
 }
 
 - (CGSize)pageFlowPageSizeFromScrollView{
-    return CGSizeZero;
+    return CGSizeMake(80, 80);
 }
 
 - (void)didReceiveMemoryWarning {
