@@ -22,6 +22,8 @@
 
 @property (nonatomic, strong) NSMutableArray *visiableCells;
 
+@property (nonatomic, assign) NSRange lastRange;
+
 @end
 
 @implementation QXWPageFlowView
@@ -63,16 +65,17 @@
 - (void)calculaterStartPointAndEndPointWith:(CGPoint)contentOffsetPoint{
     CGFloat startX = contentOffsetPoint.x - [UIScreen mainScreen].bounds.size.width;
     CGFloat endX = contentOffsetPoint.x + [UIScreen mainScreen].bounds.size.width;
-    NSInteger startIndex,endIndex;
-    for (int i = 0; i < _pageCount; i++){
+    NSInteger startIndex = 0,endIndex = 0;
+    for (NSInteger i = 0; i < _pageCount; i++){
         if ((i + 1) * _pageSize.width > startX){
             startIndex = i;
             break;
         }
     }
-    for (int i = startIndex; i < _pageCount; i++){
+    for (NSInteger i = startIndex; i < _pageCount; i++){
         if (((i + 1) * _pageSize.width > endX) && (i * _pageSize.width < endX)){
             endIndex = i;
+            break;
         } 
     }
     NSRange range = NSMakeRange(startIndex, endIndex - startIndex);
@@ -81,24 +84,45 @@
 
 
 - (void)setCellFrameWithCGRect:(NSRange)rect{
-    [self.visiableCells removeAllObjects];
+//    [self.visiableCells removeAllObjects];
     for (int i = (int)rect.location; i < rect.location + rect.length; i++){
-        UIView *view = [_dateSource pageFlowViewWithIndex:i];
-        view.frame = CGRectMake(i * _pageSize.width,0,_pageSize.width,_pageSize.height);
-        [self.scrollView addSubview:view];
-        [self.visiableCells addObject:view];
+        if (i < _lastRange.location){
+            [self.visiableCells removeObjectAtIndex:0];
+            UIView *lastView = self.visiableCells[0];
+            [lastView removeFromSuperview];
+            UIView *view = [_dateSource pageFlowViewWithIndex:i];
+            view.frame = CGRectMake(i * _pageSize.width,0,_pageSize.width,_pageSize.height);
+            [self.scrollView addSubview:view];
+            [self.visiableCells addObject:view];
+        }else if (i > _lastRange.location + _lastRange.length){
+            UIView *lastView = [self.visiableCells lastObject];
+            [lastView removeFromSuperview];
+            [self.visiableCells removeLastObject];
+            UIView *view = [_dateSource pageFlowViewWithIndex:i];
+            view.frame = CGRectMake(i * _pageSize.width,0,_pageSize.width,_pageSize.height);
+            [self.scrollView addSubview:view];
+            [self.visiableCells addObject:view];
+        }
+        
     };
-    [self setVisibableView];
+    _lastRange = rect;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self setVisibableView];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     [self calculaterStartPointAndEndPointWith:scrollView.contentOffset];
 }
 
 - (void)setVisibableView{
     for (UIView *view in self.visiableCells){
-        NSLog(@"%f",fabs(view.frame.origin.x - self.scrollView.contentOffset.x));
-        if (fabs(view.frame.origin.x - self.scrollView.contentOffset.x) < _pageSize.width){
+        CGFloat floatW = fabs(view.frame.origin.x - self.scrollView.contentOffset.x);
+        CGFloat widthP = _pageSize.width;
+        if (floatW < widthP){
+            NSLog(@"juli = %lf",floatW);
+            NSLog(@"width = %lf",widthP);
             view.frame = CGRectMake(view.frame.origin.x, 0, _pageSize.width, _pageSize.height);
         }else{
             view.frame = CGRectMake(view.frame.origin.x, 0, _pageSize.width * 0.6, _pageSize.height * 0.6);
