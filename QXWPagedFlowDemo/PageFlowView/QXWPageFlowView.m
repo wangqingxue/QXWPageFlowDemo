@@ -91,28 +91,29 @@
     for (int i = (int)rect.location; i < rect.location + rect.length; i++){
         if (i < _lastRange.location){
             UIView *lastView = self.visiableCells.lastObject;
-            [lastView removeFromSuperview];
-            if (_lastRange.length){
+            
+            NSLog(@"%ld",self.visiableCells.count);
+            if (_lastRange.length >= rect.length){
             [self.visiableCells removeLastObject];
+            [lastView removeFromSuperview];
             }
             UIView *view = [_dateSource pageFlowViewWithIndex:i];
             view.frame = CGRectMake(i * _pageSize.width,0,_pageSize.width,_pageSize.height);
             [self.scrollView addSubview:view];
             [self.visiableCells insertObject:view atIndex:0];
-            _lastRange = NSMakeRange(_lastRange.location - 1, _lastRange.length);
-            NSLog(@"%ld",i);
+            _lastRange = NSMakeRange(i, self.visiableCells.count);
         }else if (i > _lastRange.location + _lastRange.length){
             UIView *lastView = [self.visiableCells firstObject];
-            [lastView removeFromSuperview];
-            if (_lastRange.length){
+            
+            if (_lastRange.length >= rect.length){
                 [self.visiableCells removeObjectAtIndex:0];
+                [lastView removeFromSuperview];
             }
             UIView *view = [_dateSource pageFlowViewWithIndex:i];
             view.frame = CGRectMake(i * _pageSize.width,0,_pageSize.width,_pageSize.height);
             [self.scrollView addSubview:view];
             [self.visiableCells addObject:view];
             _lastRange = NSMakeRange(_lastRange.location+ 1, _lastRange.length);
-            NSLog(@"%ld",i);
             
         }
         
