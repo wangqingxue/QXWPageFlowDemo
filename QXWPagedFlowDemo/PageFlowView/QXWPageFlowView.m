@@ -38,7 +38,7 @@
 }
 
 - (void)Initialize{
-    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 80, 80)];
+    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 160, 160)];
     self.scrollView.delegate = self;
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.showsHorizontalScrollIndicator = NO;
@@ -79,7 +79,7 @@
         if (((i + 1) * _pageSize.width > endX) && (i * _pageSize.width < endX)){
             endIndex = i;
             break;
-        } 
+        }
     }
     NSRange range = NSMakeRange(startIndex, endIndex - startIndex);
     [self setCellFrameWithCGRect:range];
@@ -87,39 +87,45 @@
 
 
 - (void)setCellFrameWithCGRect:(NSRange)rect{
-//    [self.visiableCells removeAllObjects];
-    for (int i = (int)rect.location; i < rect.location + rect.length; i++){
+//    NSLog(@"%ld",self.visiableCells.count);
+    //    [self.visiableCells removeAllObjects];
+    for (int i = (int)rect.location; i <= rect.location + rect.length; i++){
         if (i < _lastRange.location){
             UIView *lastView = self.visiableCells.lastObject;
+//            NSLog(@"%ld",self.visiableCells.count);
             
-            NSLog(@"%ld",self.visiableCells.count);
-            if (_lastRange.length >= rect.length){
-            [self.visiableCells removeLastObject];
-            [lastView removeFromSuperview];
+            if (self.visiableCells.count >= rect.length){
+                [self.visiableCells removeLastObject];
+                [lastView removeFromSuperview];
+                
             }
             UIView *view = [_dateSource pageFlowViewWithIndex:i];
             view.frame = CGRectMake(i * _pageSize.width,0,_pageSize.width,_pageSize.height);
             [self.scrollView addSubview:view];
             [self.visiableCells insertObject:view atIndex:0];
-            _lastRange = NSMakeRange(i, self.visiableCells.count);
-        }else if (i > _lastRange.location + _lastRange.length){
+        }else if (i > _lastRange.location + self.visiableCells.count){
             UIView *lastView = [self.visiableCells firstObject];
-            
-            if (_lastRange.length >= rect.length){
-                [self.visiableCells removeObjectAtIndex:0];
+//            _lastRange = NSMakeRange(rect.location, self.visiableCells.count + 1);
+            if (self.visiableCells.count > rect.length){
                 [lastView removeFromSuperview];
+                [self.visiableCells removeObjectAtIndex:0];
+                
+                
             }
             UIView *view = [_dateSource pageFlowViewWithIndex:i];
-            view.frame = CGRectMake(i * _pageSize.width,0,_pageSize.width,_pageSize.height);
+            view.frame = CGRectMake((i - 1) * _pageSize.width,0,_pageSize.width,_pageSize.height);
             [self.scrollView addSubview:view];
             [self.visiableCells addObject:view];
-            _lastRange = NSMakeRange(_lastRange.location+ 1, _lastRange.length);
+            
             
         }
         
         
     };
+    _lastRange = NSMakeRange(rect.location, self.visiableCells.count);
     _first = YES;
+    NSLog(@"%@",NSStringFromRange(_lastRange));
+    NSLog(@"rect ----- %@",NSStringFromRange(rect));
     [self setVisibableView];
 }
 
@@ -128,9 +134,10 @@
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-//    if (scrollView.contentOffset.x < _pageSize.width || scrollView.contentOffset.x > (_pageCount - 1) * _pageSize.width){
-//        scrollView.contentOffset = CGPointMake(_pageCount * _pageSize.width, 0);
-//    }
+    //    if (scrollView.contentOffset.x < _pageSize.width || scrollView.contentOffset.x > (_pageCount - 1) * _pageSize.width){
+    //        scrollView.contentOffset = CGPointMake(_pageCount * _pageSize.width, 0);
+    //    }
+    
 }
 
 - (void)setVisibableView{
@@ -138,8 +145,8 @@
         CGFloat floatW = fabs(view.frame.origin.x - self.scrollView.contentOffset.x);
         CGFloat widthP = _pageSize.width;
         if (floatW < widthP / 2){
-//            NSLog(@"juli = %lf",floatW);
-//            NSLog(@"width = %lf",widthP);
+            //            NSLog(@"juli = %lf",floatW);
+            //            NSLog(@"width = %lf",widthP);
             CGPoint pointCenter = view.center;
             view.frame = CGRectMake(0, 0, _pageSize.width, _pageSize.height);
             view.center = pointCenter;
@@ -165,11 +172,11 @@
     return _cells;
 }
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 
 @end
