@@ -26,7 +26,9 @@
 
 @property (nonatomic, assign) BOOL first;
 
-@property (nonatomic, assign) BOOL hasChange;
+@property (nonatomic, assign) BOOL leftChange;
+
+@property (nonatomic, assign) BOOL rightChange;
 
 @end
 
@@ -72,13 +74,13 @@
     CGFloat endX = contentOffsetPoint.x + [UIScreen mainScreen].bounds.size.width;
     NSInteger startIndex = 0,endIndex = 0;
     for (NSInteger i = 0; i < _pageCount; i++){
-        if ((i + 1) * _pageSize.width >= startX){
+        if ((i + 1) * _pageSize.width > startX){
             startIndex = i;
             break;
         }
     }
     for (NSInteger i = startIndex; i < _pageCount; i++){
-        if (((i + 1) * _pageSize.width > endX) && (i * _pageSize.width <= endX)){
+        if (((i + 1) * _pageSize.width > endX) && (i * _pageSize.width < endX)){
             endIndex = i;
             break;
         }
@@ -97,50 +99,45 @@
     static NSInteger cacheInteget;
     NSInteger cacheChage = 0;
     for (int i = (int)rect.location; i <= rect.location + rect.length; i++){
-        if (!self.first){
-            cacheInteget = self.visiableCells.count;
+        
+        UIView *lastView = self.visiableCells.lastObject;
+        //            NSLog(@"%ld",self.visiableCells.count);
+        //向左移动
+        if (self.visiableCells.count > 0 && self.first && (rect.location + rect.length) < (_lastRange.location + _lastRange.length)){
+            [lastView removeFromSuperview];
+            [self.visiableCells removeObject:lastView];
+            self.leftChange = YES;
+            _lastRange = NSMakeRange(_lastRange.location, self.visiableCells.count);
         }
-        if (i < _lastRange.location && i < (_pageCount - rect.length)){
-            UIView *lastView = self.visiableCells.lastObject;
-//            NSLog(@"%ld",self.visiableCells.count);
+        //向右移动
+        UIView *firstView = [self.visiableCells firstObject];
+        if (self.visiableCells.count > 0 && self.first && rect.location > _lastRange.location){
+            [firstView removeFromSuperview];
+            [self.visiableCells removeObject:firstView];
+            _lastRange = NSMakeRange(_lastRange.location, self.visiableCells.count);
+            self.leftChange = YES;
+        }
+        cacheInteget = self.visiableCells.count;
+        if (i < _lastRange.location && i < (_pageCount - rect.length) &&self.first && !self.rightChange){
             
-            if (self.visiableCells.count > 0 && self.first){
-                [lastView removeFromSuperview];
-                [self.visiableCells removeObject:lastView];
-                self.hasChange = YES;
-                cacheChage++;
-            }
             UIView *view = [_dateSource pageFlowViewWithIndex:i];
-            view.frame = CGRectMake(i * _pageSize.width,0,_pageSize.width,_pageSize.height);
+            view.frame = CGRectMake((i - 1) * _pageSize.width,0,_pageSize.width,_pageSize.height);
             [self.scrollView addSubview:view];
             [self.visiableCells insertObject:view atIndex:0];
-            _lastRange = NSMakeRange(_lastRange.location - 1, self.visiableCells.count);
-            self.hasChange = YES;
-        }else if (i > _lastRange.location + cacheInteget - cacheChage && i > rect.length){
-            UIView *lastView = [self.visiableCells firstObject];
-//            _lastRange = NSMakeRange(rect.location, self.visiableCells.count + 1);
-            if (self.visiableCells.count > 0 && self.first){
-                [lastView removeFromSuperview];
-                [self.visiableCells removeObject:lastView];
-                _lastRange = NSMakeRange(_lastRange.location + 1, self.visiableCells.count + 1);
-            }else{
-                _lastRange = NSMakeRange(_lastRange.location, self.visiableCells.count + 1);
-            }
+            
+            _lastRange = NSMakeRange(rect.location, self.visiableCells.count);
+        }else if (i > (_lastRange.location + self.visiableCells.count) && rect.location + rect.length <= 60 && !self.leftChange){
             UIView *view = [_dateSource pageFlowViewWithIndex:i];
             view.frame = CGRectMake((i) * _pageSize.width,0,_pageSize.width,_pageSize.height);
             [self.scrollView addSubview:view];
             [self.visiableCells addObject:view];
-            
+            _lastRange = NSMakeRange(rect.location, self.visiableCells.count);
         }
-        
-        
     };
-    _lastRange = NSMakeRange(rect.location, self.visiableCells.count);
-    cacheInteget = rect.length;
     _first = YES;
+    self.leftChange = NO;
+    self.rightChange = NO;
     cacheInteget = 0;
-    self.hasChange = NO;
-    self.first = YES;
     [self setVisibableView];
 }
 
