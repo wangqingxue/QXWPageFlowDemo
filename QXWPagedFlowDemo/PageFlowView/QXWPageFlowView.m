@@ -18,17 +18,7 @@
 
 @property (nonatomic, assign) CGSize pageSize;
 
-@property (nonatomic, strong) NSMutableArray *cells;
-
 @property (nonatomic, strong) NSMutableArray *visiableCells;
-
-@property (nonatomic, assign) NSRange lastRange;
-
-@property (nonatomic, assign) BOOL first;
-
-@property (nonatomic, assign) BOOL leftChange;
-
-@property (nonatomic, assign) BOOL rightChange;
 
 @property (nonatomic, assign) NSInteger startPoint;
 
@@ -40,13 +30,14 @@
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]){
-        [self Initialize];
+        [self InitializeWithFrame:(CGRect)frame];
     }
     return self;
 }
 
-- (void)Initialize{
-    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 160, 160)];
+#pragma mark --初始化
+- (void)InitializeWithFrame:(CGRect)frame{
+    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
     self.scrollView.delegate = self;
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.showsHorizontalScrollIndicator = NO;
@@ -57,13 +48,11 @@
     [self addSubview:self.scrollView];
 }
 
+#pragma mark 刷新数据
 - (void)reloadData{
     if ([_dateSource respondsToSelector:@selector(pageFlowScrollViewPageCount)]){
         _originCount = [_dateSource pageFlowScrollViewPageCount];
         _pageCount = _originCount * 3;
-    }
-    for (int i = 0; i < _pageCount; i++){
-        [self.cells addObject:[NSNull null]];
     }
     if ([_dateSource respondsToSelector:@selector(pageFlowPageSizeFromScrollView)]){
         _pageSize = [_dateSource pageFlowPageSizeFromScrollView];
@@ -73,6 +62,7 @@
     [self calculaterStartPointAndEndPointWith:CGPointMake(_pageSize.width * _originCount, 0)];
 }
 
+#pragma mark 计算开始显示的index和结束显示的index
 - (void)calculaterStartPointAndEndPointWith:(CGPoint)contentOffsetPoint{
     CGFloat startX = contentOffsetPoint.x - [UIScreen mainScreen].bounds.size.width;
     CGFloat endX = contentOffsetPoint.x + [UIScreen mainScreen].bounds.size.width;
@@ -96,16 +86,12 @@
     [self setCellFrameWithCGRect:range];
 }
 
-
+#pragma mark 将view添加到ScrollView上去
 - (void)setCellFrameWithCGRect:(NSRange)rect{
-    static NSInteger cacheInteget;
-    NSInteger cacheChage = 0;
-    NSInteger rectStart;
-    NSInteger rectEnd;
-    rectStart = rect.location;
-    rectEnd = rect.location + rect.length;
+    NSInteger rectStart = rect.location;
+    NSInteger rectEnd = rect.location + rect.length;
     for (int i = (int)rect.location; i <= rect.location + rect.length; i++){
-        UIView *view = [_dateSource pageFlowViewWithIndex:i];
+        UIView *view = [_dateSource pageFlowViewWithIndex:(i % 4)];
         if (i > _endPoint){
             if (_endPoint == 0) _startPoint = i;
             _endPoint = i;
@@ -134,8 +120,6 @@
         }
         
     }
-        //向右移动
-    NSLog(@"%ld",self.visiableCells.count);
     [self setVisibableView];
 }
 
@@ -143,13 +127,7 @@
     [self calculaterStartPointAndEndPointWith:scrollView.contentOffset];
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    //    if (scrollView.contentOffset.x < _pageSize.width || scrollView.contentOffset.x > (_pageCount - 1) * _pageSize.width){
-    //        scrollView.contentOffset = CGPointMake(_pageCount * _pageSize.width, 0);
-    //    }
-    
-}
-
+#pragma mark 调整显示View的大小
 - (void)setVisibableView{
     for (UIView *view in self.visiableCells){
         CGFloat floatW = fabs(view.frame.origin.x - self.scrollView.contentOffset.x);
@@ -171,13 +149,6 @@
         _visiableCells = [NSMutableArray arrayWithCapacity:0];
     }
     return _visiableCells;
-}
-
-- (NSMutableArray *)cells{
-    if (!_cells){
-        _cells = [NSMutableArray arrayWithCapacity:0];
-    }
-    return _cells;
 }
 /*
  // Only override drawRect: if you perform custom drawing.

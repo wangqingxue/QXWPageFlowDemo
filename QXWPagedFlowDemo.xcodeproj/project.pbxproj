@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C6774FD2200BAEE400D77705 /* QXWScrollViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C6774FD1200BAEE400D77705 /* QXWScrollViewCell.m */; };
+		C6774FD4200BAFC400D77705 /* QXWScrollViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6774FD3200BAFC400D77705 /* QXWScrollViewCell.xib */; };
 		C6B142DA1FDAFB7400F96758 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C6B142D91FDAFB7400F96758 /* AppDelegate.m */; };
 		C6B142DD1FDAFB7400F96758 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6B142DC1FDAFB7400F96758 /* ViewController.m */; };
 		C6B142E01FDAFB7400F96758 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6B142DE1FDAFB7400F96758 /* Main.storyboard */; };
@@ -36,6 +38,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C6774FD0200BAEE400D77705 /* QXWScrollViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QXWScrollViewCell.h; sourceTree = "<group>"; };
+		C6774FD1200BAEE400D77705 /* QXWScrollViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QXWScrollViewCell.m; sourceTree = "<group>"; };
+		C6774FD3200BAFC400D77705 /* QXWScrollViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QXWScrollViewCell.xib; sourceTree = "<group>"; };
 		C6B142D51FDAFB7400F96758 /* QXWPagedFlowDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QXWPagedFlowDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6B142D81FDAFB7400F96758 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C6B142D91FDAFB7400F96758 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -109,6 +114,9 @@
 				C6B142D91FDAFB7400F96758 /* AppDelegate.m */,
 				C6B142DB1FDAFB7400F96758 /* ViewController.h */,
 				C6B142DC1FDAFB7400F96758 /* ViewController.m */,
+				C6774FD0200BAEE400D77705 /* QXWScrollViewCell.h */,
+				C6774FD1200BAEE400D77705 /* QXWScrollViewCell.m */,
+				C6774FD3200BAFC400D77705 /* QXWScrollViewCell.xib */,
 				C6B142DE1FDAFB7400F96758 /* Main.storyboard */,
 				C6B142E11FDAFB7400F96758 /* Assets.xcassets */,
 				C6B142E31FDAFB7400F96758 /* LaunchScreen.storyboard */,
@@ -251,6 +259,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6774FD4200BAFC400D77705 /* QXWScrollViewCell.xib in Resources */,
 				C6B142E51FDAFB7400F96758 /* LaunchScreen.storyboard in Resources */,
 				C6B142E21FDAFB7400F96758 /* Assets.xcassets in Resources */,
 				C6B142E01FDAFB7400F96758 /* Main.storyboard in Resources */,
@@ -281,6 +290,7 @@
 				C6B142DD1FDAFB7400F96758 /* ViewController.m in Sources */,
 				C6B1430D1FDAFBB800F96758 /* QXWPageFlowView.m in Sources */,
 				C6B142E81FDAFB7400F96758 /* main.m in Sources */,
+				C6774FD2200BAEE400D77705 /* QXWScrollViewCell.m in Sources */,
 				C6B142DA1FDAFB7400F96758 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
