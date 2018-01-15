@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) IBOutlet UIView *baseView;
 @property (weak, nonatomic) IBOutlet UIImageView *backGroundImageView;
+@property (weak, nonatomic) IBOutlet UILabel *indexLabel;
 
 @end
 
@@ -30,8 +31,9 @@
     [self addSubview:self.baseView];
 }
 
-- (void)setWithImageName:(NSString *)imageName{
+- (void)setWithImageName:(NSString *)imageName WithIndex:(NSInteger)index{
     self.backGroundImageView.image = [UIImage imageNamed:imageName];
+    self.indexLabel.text = [NSString stringWithFormat:@"%ld",index];
 }
 /*
 // Only override drawRect: if you perform custom drawing.

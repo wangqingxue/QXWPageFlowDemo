@@ -10,6 +10,6 @@
 
 @interface QXWScrollViewCell : UIView
 
-- (void)setWithImageName:(NSString *)imageName;
+- (void)setWithImageName:(NSString *)imageName WithIndex:(NSInteger)index;
 
 @end

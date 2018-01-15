@@ -65,7 +65,7 @@
 #pragma mark 计算开始显示的index和结束显示的index
 - (void)calculaterStartPointAndEndPointWith:(CGPoint)contentOffsetPoint{
     CGFloat startX = contentOffsetPoint.x - [UIScreen mainScreen].bounds.size.width;
-    CGFloat endX = contentOffsetPoint.x + [UIScreen mainScreen].bounds.size.width;
+    CGFloat endX = contentOffsetPoint.x + self.frame.size.width;
     NSInteger startIndex = 0,endIndex = 0;
     for (NSInteger i = 0; i < _pageCount; i++){
         if ((i + 1) * _pageSize.width > startX){
@@ -79,7 +79,7 @@
             break;
         }
         if (i * _pageSize.width >= endIndex){
-            endIndex = _pageCount;
+            endIndex = _pageCount - 1;
         }
     }
     NSRange range = NSMakeRange(startIndex, endIndex - startIndex);
@@ -121,6 +121,15 @@
         
     }
     [self setVisibableView];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+//    if (scrollView.contentOffset.x == self.scrollView.frame.size.width * 1){
+//        self.scrollView.contentOffset = CGPointMake((1 + _originCount) * self.scrollView.frame.size.width, 0);
+//    }else
+    if(scrollView.contentOffset.x == self.scrollView.frame.size.width * (_pageCount - 2)){
+        self.scrollView.contentOffset = CGPointMake((_originCount) * self.scrollView.frame.size.width, 0);
+    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{

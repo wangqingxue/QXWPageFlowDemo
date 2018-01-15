@@ -31,7 +31,7 @@
 
 - (UIView *)pageFlowViewWithIndex:(NSInteger)index{
     QXWScrollViewCell *scrollViewCell = [[QXWScrollViewCell alloc]initWithFrame:CGRectMake(0, 0, 240, 240)];
-    [scrollViewCell setWithImageName:[NSString stringWithFormat:@"%ld",index]];
+    [scrollViewCell setWithImageName:[NSString stringWithFormat:@"%ld",index] WithIndex:index];
     return scrollViewCell;
 }
 

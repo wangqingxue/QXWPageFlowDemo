@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="backGroundImageView" destination="SVS-9c-TdK" id="Bj3-hn-4Td"/>
                 <outlet property="baseView" destination="iN0-l3-epB" id="N0n-Km-ahm"/>
+                <outlet property="indexLabel" destination="SaF-60-q1t" id="8hJ-22-EIH"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -23,12 +24,20 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SVS-9c-TdK">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                 </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SaF-60-q1t">
+                    <rect key="frame" x="166.5" y="323" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="SVS-9c-TdK" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="0o5-fD-WOP"/>
                 <constraint firstItem="SVS-9c-TdK" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="bn5-sQ-fve"/>
                 <constraint firstItem="SVS-9c-TdK" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="haQ-JL-Thr"/>
+                <constraint firstItem="SaF-60-q1t" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="qlg-za-QC4"/>
+                <constraint firstItem="SaF-60-q1t" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="uno-RF-SZE"/>
                 <constraint firstItem="SVS-9c-TdK" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="yxQ-QV-iS3"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
