@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C6543CB820179242000FC9B5 /* QXWGCDTimerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C6543CB720179242000FC9B5 /* QXWGCDTimerManager.m */; };
 		C6774FD2200BAEE400D77705 /* QXWScrollViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C6774FD1200BAEE400D77705 /* QXWScrollViewCell.m */; };
 		C6774FD4200BAFC400D77705 /* QXWScrollViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6774FD3200BAFC400D77705 /* QXWScrollViewCell.xib */; };
 		C6B142DA1FDAFB7400F96758 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C6B142D91FDAFB7400F96758 /* AppDelegate.m */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C6543CB620179242000FC9B5 /* QXWGCDTimerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QXWGCDTimerManager.h; sourceTree = "<group>"; };
+		C6543CB720179242000FC9B5 /* QXWGCDTimerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QXWGCDTimerManager.m; sourceTree = "<group>"; };
 		C6774FD0200BAEE400D77705 /* QXWScrollViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QXWScrollViewCell.h; sourceTree = "<group>"; };
 		C6774FD1200BAEE400D77705 /* QXWScrollViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QXWScrollViewCell.m; sourceTree = "<group>"; };
 		C6774FD3200BAFC400D77705 /* QXWScrollViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QXWScrollViewCell.xib; sourceTree = "<group>"; };
@@ -86,6 +89,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C6543CB220179191000FC9B5 /* GCDManager */ = {
+			isa = PBXGroup;
+			children = (
+				C6543CB620179242000FC9B5 /* QXWGCDTimerManager.h */,
+				C6543CB720179242000FC9B5 /* QXWGCDTimerManager.m */,
+			);
+			path = GCDManager;
+			sourceTree = "<group>";
+		};
 		C6B142CC1FDAFB7400F96758 = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +121,7 @@
 		C6B142D71FDAFB7400F96758 /* QXWPagedFlowDemo */ = {
 			isa = PBXGroup;
 			children = (
+				C6543CB220179191000FC9B5 /* GCDManager */,
 				C6B1430A1FDAFBA900F96758 /* PageFlowView */,
 				C6B142D81FDAFB7400F96758 /* AppDelegate.h */,
 				C6B142D91FDAFB7400F96758 /* AppDelegate.m */,
@@ -288,6 +301,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6B142DD1FDAFB7400F96758 /* ViewController.m in Sources */,
+				C6543CB820179242000FC9B5 /* QXWGCDTimerManager.m in Sources */,
 				C6B1430D1FDAFBB800F96758 /* QXWPageFlowView.m in Sources */,
 				C6B142E81FDAFB7400F96758 /* main.m in Sources */,
 				C6774FD2200BAEE400D77705 /* QXWScrollViewCell.m in Sources */,
